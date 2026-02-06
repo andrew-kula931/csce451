@@ -3,6 +3,34 @@
 #include <stdlib.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+#include <string.h>
+
+// Provides a separate function to handle interactions with the client
+int handle_server(int socketD) {
+	while (1 == 1) {
+		char strData[255];
+		int bytesReceived = recv(socketD, strData, sizeof(strData), 0);
+		if (bytesReceived > 0) {
+			printf("%s", strData);
+
+			char input[255];		
+			fgets(input, sizeof(input), stdin);
+			if (strcmp(input, "quit\n") == 0 || strcmp(input, "q\n") == 0) break;
+
+			send(socketD, input, sizeof(input), 0);
+
+			int outputPrompt = recv(socketD, strData, sizeof(strData), 0);
+			printf("%s", strData);
+			int outputBytes = recv(socketD, strData, sizeof(strData), 0);
+			printf("%s\n", strData);
+		} else {
+			break;
+		}
+	}
+
+	printf("Disconnecting from server\n");
+	return 0;
+}
 
 int main(int argc, char const *argv[]) {
 	int socketD = socket(AF_INET, SOCK_STREAM, 0);
@@ -14,15 +42,19 @@ int main(int argc, char const *argv[]) {
 
 	int connectStatus = connect(socketD, (struct sockaddr*)&addr, sizeof(addr));
 
+	int return_status = 0;
 	if (connectStatus == -1) {
-		printf("Error...\n");
+		printf("Error! No server found. Please start the server with `make run`.\n");
 	} else {
 		char strData[255];
 
+		printf("Connecting to server...\n");
 		recv(socketD, strData, sizeof(strData), 0);
-
 		printf("Message: %s\n", strData);
+		
+		return_status = handle_server(socketD);
+		printf("Returned from handle_server with status: %d\n", return_status);
 	}
 
-	return 0;	
+	return return_status;	
 }

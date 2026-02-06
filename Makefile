@@ -9,7 +9,10 @@ compile: client.c server.c
 	gcc -o client client.c
 
 # Starts server and writes server PID to a file
+# Commands are hidden with @ for better UX
 run:
+	@gcc -o server server.c
+	@gcc -o client client.c
 	@echo "Starting server..."
 	@$(SERVER_CMD) & echo $$! > $(PID_FILE)
 	@sleep 1
@@ -28,3 +31,7 @@ stop:
 	fi
 	@pkill -f $(CLIENT_CMD) || true
 	@echo "Client stopped if running"
+
+# Connects to the server with a unique client
+connect:
+	@$(CLIENT_CMD)
