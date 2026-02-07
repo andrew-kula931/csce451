@@ -24,11 +24,7 @@ int handle_server(int socketD) {
 
 			send(socketD, input, sizeof(input), 0);
 
-			// Currently two recieves in order to handle the "Message recieved: " prompt
-			// and whatever the user inputed immediately after
-			// TODO: this should return the output of the command inputted
-			int outputPrompt = recv(socketD, strData, sizeof(strData), 0);
-			printf("%s", strData);
+			// Waits for the server to respond with the command output
 			int outputBytes = recv(socketD, strData, sizeof(strData), 0);
 			printf("%s\n", strData);
 		} else {
