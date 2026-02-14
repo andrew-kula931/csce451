@@ -1,5 +1,9 @@
 # CSCE 451 - Remote Shell using Socket Programming
 
+## Contributers
+
+Andrew Kula, Kurt Kuhlman, and Boston Bailey
+
 ## Makefile Overview
 
 `make compile` - compiles the program and outputs the executables `server` and `client` respctively.
