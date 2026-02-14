@@ -1,0 +1,5 @@
+
+# Don't add the executables to the repo
+client
+server
+server.pid
