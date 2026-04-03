@@ -3,3 +3,8 @@
 client
 server
 server.pid
+sleepingStylistSem
+sleepingStylistMon
+
+
+.vscode/
