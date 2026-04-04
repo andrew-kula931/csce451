@@ -17,7 +17,9 @@ void main ( void ) {
 // and a stylist thread . Don ’ t f o r g e t t o j o i n t h r e a d s
 }
 
-void stylist ( void ) {
+
+// have not tested these two yet
+void stylist (void) {
   int j;
   while (1) {
       sem_wait(&customers);
@@ -32,19 +34,24 @@ void stylist ( void ) {
   }
 }
 
-void customer ( void ) {
-  int j;
-  while (1) {
-    down(&mutex);
-    if (waiting < CHAIRS){
-      waiting = waiting + 1;
-      up(&customers);
-      up(&mutex);
-      down(&stylist);
-      break;
-    } else {
-      up(&mutex) ;
-      for (j = 0; j < DELAY; j++); // go shopping
+void customer(void) {
+    int j;
+    while (1) {
+        sem_wait(&mutex);
+        if (waiting < CHAIRS) {
+            waiting = waiting + 1;
+
+            sem_post(&customers);
+            sem_post(&mutex);
+
+            sem_wait(&stylist_s);
+            break;
+        } else {
+            sem_post(&mutex);
+
+            for (j = 0; j < DELAY; j++);
+        }
     }
-  }
+
+    return NULL;
 }
