@@ -20,9 +20,10 @@ void stylist(void) {
     for (int j = 0; j < DELAY; j++); // cut hair
     printf("Haircut finished\n");
 
-    if (total_customers == NUM_CUSTOMERS && waiting == 0) {
-      break;
-    }
+    sem_wait(&mutex);
+    int done = (total_customers == NUM_CUSTOMERS && waiting == 0);
+    sem_post(&mutex);
+    if (done) break;
   }
 }
 
@@ -54,11 +55,12 @@ int main(void) {
   sem_init(&stylists, 0, 0);
   sem_init(&customers, 0, 0);
   pthread_t stylist_thread;
+  pthread_t customer_threads[NUM_CUSTOMERS];
   pthread_create(&stylist_thread, NULL, (void *)stylist, NULL);
-  for (int i = 0; i < NUM_CUSTOMERS; i++) {
-    pthread_t customer_thread;
-    pthread_create(&customer_thread, NULL, (void *)customer, NULL);
-  }
+  for (int i = 0; i < NUM_CUSTOMERS; i++)
+    pthread_create(&customer_threads[i], NULL, (void *)customer, NULL);
   pthread_join(stylist_thread, NULL);
+  for (int i = 0; i < NUM_CUSTOMERS; i++)
+    pthread_join(customer_threads[i], NULL);
   return 0;
 }

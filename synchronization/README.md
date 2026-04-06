@@ -40,3 +40,42 @@ The output should look something like this:
 > Haircut finished   
 > Customer 12 takes a seat: Currently waiting: 1   
 > Customer 13 takes a seat: Currently waiting: 2   
+
+**Time spent:** 12 hours
+
+**Challenge level:** 3/5
+
+### Part 2
+
+To run part 2, either enter `make part2` into the terminal, or enter `make compile` then `./part2/sleepingStylistMon`.
+
+The output will show the state of the waiting chairs before each action, followed by messages indicating when the stylist sleeps and wakes up, and when customers wait for the stylist.
+
+The output should look something like this:
+> Salon empty = 1 times
+> [Customer] Salon full, going shopping (salon_full=1054)
+> |1|1|1|1|1|1| => 6
+> Given haircuts = 15
+> Salon full = 1054 times
+> Salon empty = 1 times
+> [Customer] Salon full, going shopping (salon_full=1055)
+> |1|1|1|1|1|1| => 6
+> Given haircuts = 15
+> Salon full = 1055 times
+> Salon empty = 1 times
+> [Customer] Salon full, going shopping (salon_full=1056)
+> [Customer] Salon full, going shopping (salon_full=1057)
+
+#### Observing the signal-and-continue discipline
+
+The key lines to look for are:
+
+1. `[Stylist] Woke up, resuming inside monitor (signal-and-continue confirmed)` — after a customer signals the stylist, the stylist re-enters the monitor and continues from where it left off. If this were signal-and-wait, the customer would run first instead.
+
+2. `[Customer] Stylist ready, resuming inside monitor (signal-and-continue confirmed)` — after the stylist signals a customer, the customer competes to re-enter the monitor via the entry queue. The stylist continues running first (signal-and-continue), and only after the stylist exits does the customer resume.
+
+In both cases, the **signaler continues** inside the monitor and the **woken thread waits at the entry queue** — confirming signal-and-continue behavior.
+
+**Time spent:** 15 hours
+
+**Challenge level:** 4/5
