@@ -1,8 +1,8 @@
-!!IMPORTANT: When the final zip file is made, name it [GroupName]_classic where group name is our group name
+!!IMPORTANT: When the final zip file is made, name it [GroupName]\_classic where group name is our group name
 
 # Classical Synchronization Problem
 
-Group Members: Andrew Kula, Kurt Kuhlman
+Group Members: Andrew Kula, Kurt Kuhlman, Boston Bailey
 
 ## Requirements
 
@@ -19,27 +19,30 @@ To run the program, a few helper commands have been implemented:
 
 `make part2`: Compiles and runs part2; the monitor stylist problem.
 
+`make clean`: Removes the executable files generated from part1 and part2.
+
 ### Part 1
 
-To run part 1, either enter `make part1` into the terminal, or enter `make compile` then `./part1/sleepingStylistSem`. 
+To run part 1, either enter `make part1` into the terminal, or enter `make compile` then `./part1/sleepingStylistSem`.
 Once run, the program will run and the stylist will begin taking on customers.
 
 The output should look something like this:
-> Customer 5 takes a seat: Currently waiting: 1   
-> Haircut finished   
-> Customer 6 takes a seat: Currently waiting: 1   
-> Customer 7 takes a seat: Currently waiting: 1   
-> Haircut finished   
-> Customer 8 takes a seat: Currently waiting: 1   
-> Customer 9 takes a seat: Currently waiting: 2   
-> Customer 10 takes a seat: Currently waiting: 3   
-> Haircut finished   
-> Haircut finished   
-> Haircut finished   
-> Customer 11 takes a seat: Currently waiting: 1   
-> Haircut finished   
-> Customer 12 takes a seat: Currently waiting: 1   
-> Customer 13 takes a seat: Currently waiting: 2   
+
+> Customer 5 takes a seat: Currently waiting: 1  
+> Haircut finished  
+> Customer 6 takes a seat: Currently waiting: 1  
+> Customer 7 takes a seat: Currently waiting: 1  
+> Haircut finished  
+> Customer 8 takes a seat: Currently waiting: 1  
+> Customer 9 takes a seat: Currently waiting: 2  
+> Customer 10 takes a seat: Currently waiting: 3  
+> Haircut finished  
+> Haircut finished  
+> Haircut finished  
+> Customer 11 takes a seat: Currently waiting: 1  
+> Haircut finished  
+> Customer 12 takes a seat: Currently waiting: 1  
+> Customer 13 takes a seat: Currently waiting: 2
 
 **Time spent:** 12 hours
 
@@ -52,6 +55,7 @@ To run part 2, either enter `make part2` into the terminal, or enter `make compi
 The output will show the state of the waiting chairs before each action, followed by messages indicating when the stylist sleeps and wakes up, and when customers wait for the stylist.
 
 The output should look something like this:
+
 > Salon empty = 1 times
 > [Customer] Salon full, going shopping (salon_full=1054)
 > |1|1|1|1|1|1| => 6
