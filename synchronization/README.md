@@ -26,6 +26,11 @@ To run the program, a few helper commands have been implemented:
 To run part 1, either enter `make part1` into the terminal, or enter `make compile` then `./part1/sleepingStylistSem`.
 Once run, the program will run and the stylist will begin taking on customers.
 
+The signal-and-continue behavior can be verified by watching when haircuts are finished and when new customers are
+occupying the available seating. The max seating is set to 6, so therefore, any case when a customer attempts to take
+a seat beyond that threshold will result in the output dialogue "No available seating. Going shopping.". All other cases
+will increase the number of seated customers by one (and exclusively one).
+
 The output should look something like this:
 
 > Customer 5 takes a seat: Currently waiting: 1  

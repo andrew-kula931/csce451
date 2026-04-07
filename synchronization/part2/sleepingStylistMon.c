@@ -3,7 +3,7 @@
 #include <pthread.h>
 #include "monitor.h"
 
-#define DELAY        1000000   /* adjust this value */
+#define DELAY 1000000
 #define NUM_CUSTOMERS 75
 
 static void *stylist_func(void *arg) {
